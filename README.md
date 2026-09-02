@@ -1,79 +1,205 @@
-## 1. Project Title
+🚲 Bike Sharing Demand Analysis
 
-**Bike Sharing Demand Analysis**
+An end-to-end data analytics project analyzing Seoul bike rental demand across different hours, seasons, holidays, and weather conditions, with additional Seoul attraction data collected through web scraping.
 
-## 2. Business Problem
+📌 Project Overview
 
-Bike rental demand is not constant throughout the day or across different seasons and weather conditions. For a bike-sharing company, understanding these changes is important for planning bike availability and allocating resources efficiently. Too few bikes during high-demand periods can result in missed rental opportunities, while maintaining excessive availability during low-demand periods can lead to inefficient resource use.
+Bike-sharing demand changes significantly depending on the time of day, season, holidays, and weather conditions.
 
-This project analyzes the **Seoul Bike Sharing Dataset** to identify the periods and conditions associated with higher or lower rental demand. The analysis focuses on hourly demand, seasonal patterns, holiday effects, rainfall, and the combination of season and time of day. The objective is to identify clear demand patterns that can support better operational planning.
+This project analyzes the Seoul Bike Sharing Dataset to identify demand patterns and determine when bike availability should be prioritized. The analysis combines Python, web scraping, PostgreSQL, Excel, and Power BI to turn the raw data into practical operational insights.
 
-## 3. Dataset
+🎯 Business Objectives
 
-The **Seoul Bike Sharing Demand Dataset** was used for the analysis. The dataset contains **8,760 hourly records** of bike rentals along with information about date, hour, season, holiday status, temperature, humidity, wind speed, visibility, solar radiation, rainfall, snowfall, and functioning day.
+The analysis focuses on answering the following questions:
 
-The dataset was analyzed using multiple tools as part of the project workflow, including **Python, Pandas, PostgreSQL, Excel, and BeautifulSoup**.
+🚲 When is bike rental demand highest?
+🌅 Which time periods have the highest demand?
+🌤️ Which season generates the most rentals?
+📅 How does demand differ between holidays and non-holidays?
+🌧️ How does rainfall affect bike rental demand?
+📊 Which combination of season and time period produces the highest demand?
+🚀 When should bike availability be prioritized?
+🛠️ Tools & Technologies
+Tool	Purpose
+🐍 Python	Data cleaning and analysis
+🐼 Pandas	Data manipulation and feature creation
+🌐 BeautifulSoup	Web scraping
+🐘 PostgreSQL	SQL analysis
+📊 Microsoft Excel	Pivot tables and data analysis
+📈 Power BI	Interactive dashboard and visualization
+🐙 GitHub	Project documentation
+🧹 Data Cleaning & Preparation
 
-## 4. Data Cleaning
+The dataset was prepared for analysis using Python and Pandas.
 
-The initial data preparation was performed using **Python and Pandas**. The dataset was inspected to understand its structure, data types, and overall data quality. Checks were performed for missing values, duplicate records, and invalid data.
+The following operations were performed:
 
-The `Date` column was converted into a proper date format, while the existing `Hour` information was used to create a new **Time_Category** feature. The hours were grouped into four categories: **Morning, Afternoon, Evening, and Night**.
+Checked dataset structure and dimensions
+Inspected data types
+Checked for missing values
+Checked for duplicate records
+Checked for invalid data
+Converted the Date column to the appropriate date format
+Created a Time_Category column
+Created a Weather Category column
+Exported the cleaned dataset as cleaned_bike_data.csv
+🕐 Time Category Classification
+Hour	Category
+00–04	🌙 Night
+05–11	🌅 Morning
+12–16	☀️ Afternoon
+17–21	🌆 Evening
+22–23	🌙 Night
+🌧️ Weather Category Classification
+Rainfall	Category
+0 mm	No Rain
+>0–18 mm	Light Rain
+>18–35 mm	Heavy Rain
+🌐 Web Scraping
 
-A **Weather Category** was also created using rainfall values. The project classified the observations into **No Rain, Light Rain, and Heavy Rain** to make the rainfall analysis easier to interpret.
+Using BeautifulSoup, information about 10 popular Seoul attractions was collected from public tourism webpages.
 
-After cleaning and transformation, the dataset was exported as **`cleaned_bike_data.csv`** and used for the subsequent SQL and Excel analysis.
+The scraped dataset contains:
 
-As an additional data collection task, **BeautifulSoup** was used to scrape information about 10 Seoul attractions, including their names, categories, and areas. The scraped information was saved separately as **`seoul_attractions.csv`**.
+Attraction
+Category
+Area
+Source
 
-## 5. Key Findings
+The collected attractions include historical sites, cultural destinations, shopping areas, landmarks, and public spaces.
 
-### 1. Overall Rental Demand
+The results were exported as:
 
-The dataset recorded a total of **6,172,314 bike rentals**, with an average of approximately **704.60 rentals per hour**. This provides a baseline for comparing demand across different periods and conditions.
+seoul_attractions.csv
 
-### 2. Evening Hours Have the Highest Demand
+🐘 SQL Analysis
 
-The analysis identified **6 PM as the highest-demand hour**, with an average of **1,502.93 rentals**. The five highest-demand hours were **6 PM, 7 PM, 5 PM, 8 PM, and 9 PM** respectively.
+The cleaned bike rental data was imported into PostgreSQL for further analysis.
 
-This shows that demand is strongly concentrated during the evening period, making this an important period for operational planning.
+The SQL analysis focused on:
 
-### 3. Summer Has the Highest Total Rental Volume
+Total rentals by season
+Average rentals on holidays vs non-holidays
+Top 5 hours by average rental demand
+Average rentals by weather category
+Highest-demand season and time-category combination
+📊 Excel Analysis
 
-Summer recorded the highest number of rentals at **2,283,234**, followed by Autumn with **1,790,002**, Spring with **1,611,909**, and Winter with **487,169**.
+Excel was used to summarize and visualize the rental data.
 
-The results therefore show a substantial difference in rental activity between summer and winter, with summer representing the strongest season for overall rental volume.
+The analysis included:
 
-### 4. Non-Holiday Days Have Higher Average Demand
+Pivot Table: Bike Rentals by Hour
+Pivot Table: Bike Rentals by Season
+Pivot Table: Holiday vs Non-Holiday Rentals
+Conditional formatting to highlight demand levels
+Line chart showing Hour vs Bike Rentals
+📈 Power BI Dashboard
 
-Average rental demand was **715.23 rentals on non-holidays**, compared with **499.76 rentals on holidays**. Within this dataset, non-holiday periods therefore showed considerably higher average rental activity.
+The Urban Demand & Operations Dashboard provides an interactive overview of bike rental demand.
 
-### 5. Rainfall Is Associated With Lower Rental Demand
+KPI Cards
+🚲 Total Rentals
+📊 Average Rentals
+🕕 Peak Hour
+🌤️ Highest-Demand Season
+Visualizations
+Hourly Rental Demand
+Rental Demand by Season
+Rental Demand by Time Category
+Holiday vs Non-Holiday Demand
+Rainfall vs Rental Demand
+Temperature vs Rental Demand
+Interactive Filters
+Season
+Holiday
+Time Category
+Weather Category
+🔍 Key Insights
+🚲 1. High Overall Rental Volume
 
-The analysis showed an average of **739.31 rentals during No Rain**, compared with **163.84 during Light Rain** and **138.38 during Heavy Rain**.
+The dataset contains 6,172,314 total bike rentals, with an average of approximately 704.60 rentals per hour.
 
-However, the Heavy Rain category contained only **8 observations**, compared with **520 Light Rain observations and 8,232 No Rain observations**. Therefore, the Heavy Rain result should be interpreted with caution because of its very small sample size.
+🕕 2. Evening Is the Peak Demand Period
 
-### 6. Summer Evenings Represent the Strongest Combined Demand
+6 PM recorded the highest average rental demand at 1,502.93 rentals.
 
-When season and time category were analyzed together, **Summer + Evening** produced the highest average demand, with **1,821.33 rentals**. This reinforces the importance of evening operations during the summer season.
+The top five hours were:
 
-## 6. Business Recommendations
+Rank	Hour	Average Rentals
+🥇	18:00	1,502.93
+🥈	19:00	1,195.15
+🥉	17:00	1,138.51
+4	20:00	1,068.96
+5	21:00	1,031.45
 
-### 1. Increase Bike Availability During Evening Peak Hours
+This shows a strong concentration of demand during the evening.
 
-The company should prioritize bike availability between **5 PM and 9 PM**, particularly around **6 PM**, when average rental demand reaches its highest level. Additional bikes and redistribution efforts during these hours could help accommodate the higher demand.
+☀️ 3. Summer Has the Highest Rental Volume
 
-### 2. Prioritize Summer Evening Operations
+Summer recorded the highest total rentals:
 
-Summer has the highest overall rental volume, while Summer Evening is the strongest season and time combination. Operational planning should therefore prioritize **summer evenings** for bike availability, redistribution, and resource allocation.
+Season	Total Rentals
+☀️ Summer	2,283,234
+🍂 Autumn	1,790,002
+🌸 Spring	1,611,909
+❄️ Winter	487,169
+📅 4. Non-Holiday Days Have Higher Average Demand
+Day Type	Average Rentals
+No Holiday	715.23
+Holiday	499.76
 
-### 3. Adjust Operations Based on Weather Conditions
+Average rental demand was higher on non-holiday days.
 
-The substantial reduction in average rentals during rainy conditions suggests that bike deployment could be adjusted according to weather. During periods of rainfall, resources could be redistributed toward locations or periods with stronger demand rather than maintaining the same level of availability everywhere. The limited Heavy Rain observations should be considered before making decisions specifically based on heavy rainfall.
+🌧️ 5. Rain Is Associated With Lower Demand
+Weather Category	Observations	Average Rentals
+No Rain	8,232	739.31
+Light Rain	520	163.84
+Heavy Rain	8	138.38
 
-## Conclusion
+Rental demand was substantially lower during rainy conditions.
 
-The analysis demonstrates that bike rental demand varies significantly according to **time, season, holiday status, and rainfall**. The strongest demand occurs during the **evening**, with **6 PM being the peak hour**, while **summer** has the highest overall rental volume. The combination of **Summer and Evening** produces the highest average demand observed in the analysis.
+Note: Heavy Rain has only 8 observations, so this result should be interpreted cautiously.
 
-Overall, the results suggest that bike availability should be managed dynamically rather than uniformly. Focusing resources on high-demand periods, particularly **summer evenings and the 5 PM to 9 PM window**, can provide a more data-driven approach to operational planning while accounting for lower demand during holidays and rainy conditions.
+🌆 6. Summer Evening Has the Highest Combined Demand
+
+The highest-demand combination of season and time category was:
+
+Summer + Evening: 1,821.33 average rentals
+
+This identifies summer evenings as the strongest demand period in the analysis.
+
+💡 Business Recommendations
+1️⃣ Prioritize Evening Bike Availability
+
+Increase bike availability and redistribution efforts during the 5 PM–9 PM period, with particular attention to the 6 PM peak.
+
+2️⃣ Focus on Summer Evening Operations
+
+Summer has the highest overall rental volume, while Summer + Evening has the highest combined demand. Operational planning should therefore prioritize this period.
+
+3️⃣ Adjust Operations During Rainy Conditions
+
+Since rental demand decreases considerably during rainy conditions, bike deployment and redistribution can be adjusted according to weather conditions rather than maintaining the same allocation throughout the day.
+
+🎯 Final Business Focus
+
+The analysis indicates that bike rental demand is concentrated around specific periods rather than being evenly distributed.
+
+The strongest operational opportunity is to prioritize resources during:
+
+☀️ Summer + 🌆 Evening
+
+with the broader 5 PM–9 PM period being particularly important.
+
+Understanding these patterns can help improve bike availability, resource allocation, and operational planning.
+
+📌 Dashboard Preview
+
+The Power BI dashboard provides an interactive view of bike rental demand and allows users to explore patterns using filters for Season, Holiday, Time Category, and Weather Category.
+
+⭐ Key Takeaway
+
+Bike demand is highest during summer evenings, with 6 PM representing the peak rental hour.
+
+📊 Using Python, SQL, Excel, web scraping, and Power BI to turn Seoul bike rental data into practical operational insights.
