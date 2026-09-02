@@ -1,7 +1,3 @@
-## Verification Status → VERIFIED
-
-# Project Summary
-
 ## 1. Project Title
 
 **Bike Sharing Demand Analysis**
